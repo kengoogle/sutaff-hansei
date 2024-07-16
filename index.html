@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>きみの夏2024 アンケートスタッフ用</title>
+    <title>きみの夏2024 アンケートはちの会 会員用</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,8 +41,8 @@
     </style>
 </head>
 <body>
-    <h1>きみの夏2024 アンケートスタッフ用　</h1>
-    <p>吉美地区全体の夏祭りを１度やってみてのふりかえり。何回送ってもOK</p>
+    <h1>きみの夏2024 アンケートはちの会 会員用</h1>
+    <p>吉美地区全体の夏祭りを１度やってみてのふりかえり</p>
     <form id="surveyForm">
         <label for="concept">1. あらためて、この祭りのコンセプト、目的などを次回のために考えよう</label>
         <textarea id="concept" name="concept"></textarea>
@@ -56,23 +56,29 @@
         <label for="nextTime">4. 次回やってみたい事</label>
         <textarea id="nextTime" name="nextTime"></textarea>
 
-        <button type="submit">送信</button>
+        <button type="submit" id="submitButton">送信</button>
     </form>
-    <div id="message">あなたの夢をかなえましょう</div>
+    <div id="message"></div>
 
     <script>
         document.getElementById('surveyForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // 送信ボタンを非表示にする
+            document.getElementById('submitButton').style.display = 'none';
+            
             // メッセージを表示
             var messageElement = document.getElementById('message');
+            messageElement.textContent = "送信完了！あなたの夢をかなえましょう";
             messageElement.style.display = 'block';
             
-            // 5秒後にメッセージを非表示にし、メール送信
+            // メールを送信
+            sendEmail();
+            
+            // 4秒後にYouTubeへリダイレクト
             setTimeout(function() {
-                messageElement.style.display = 'none';
-                sendEmail();
-            }, 5000);
+                window.location.href = 'https://youtu.be/wpZlLeVMTOY';
+            }, 4000);
         });
 
         function sendEmail() {
@@ -86,7 +92,7 @@
                 + '?subject=' + encodeURIComponent('きみの夏2024 アンケート回答')
                 + '&body=' + encodeURIComponent(body);
 
-            window.location.href = mailtoLink;
+            window.open(mailtoLink, '_blank');
         }
     </script>
 </body>
