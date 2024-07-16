@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>きみの夏2024 アンケートスタッフ用</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label, textarea {
+            margin-top: 10px;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #message {
+            display: none;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>きみの夏2024 アンケートスタッフ用　</h1>
+    <p>吉美地区全体の夏祭りを１度やってみてのふりかえり。何回送ってもOK</p>
+    <form id="surveyForm">
+        <label for="concept">1. あらためて、この祭りのコンセプト、目的などを次回のために考えよう</label>
+        <textarea id="concept" name="concept"></textarea>
+
+        <label for="goodPoints">2. 今回の祭りで良かった点とその理由</label>
+        <textarea id="goodPoints" name="goodPoints"></textarea>
+
+        <label for="badPoints">3. 悪かった点とその理由とできれば改善案</label>
+        <textarea id="badPoints" name="badPoints"></textarea>
+
+        <label for="nextTime">4. 次回やってみたい事</label>
+        <textarea id="nextTime" name="nextTime"></textarea>
+
+        <button type="submit">送信</button>
+    </form>
+    <div id="message">あなたの夢をかなえましょう</div>
+
+    <script>
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // メッセージを表示
+            var messageElement = document.getElementById('message');
+            messageElement.style.display = 'block';
+            
+            // 5秒後にメッセージを非表示にし、メール送信
+            setTimeout(function() {
+                messageElement.style.display = 'none';
+                sendEmail();
+            }, 5000);
+        });
+
+        function sendEmail() {
+            var formData = new FormData(document.getElementById('surveyForm'));
+            var body = '';
+            for (var pair of formData.entries()) {
+                body += pair[0] + ': ' + pair[1] + '\n\n';
+            }
+
+            var mailtoLink = 'mailto:teamkimi@mail.goo.ne.jp'
+                + '?subject=' + encodeURIComponent('きみの夏2024 アンケート回答')
+                + '&body=' + encodeURIComponent(body);
+
+            window.location.href = mailtoLink;
+        }
+    </script>
+</body>
+</html>
